@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Control Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        /* Main content */
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        /* Video feed container */
+        .video-container {
+            width: 50%;
+            text-align: center;
+        }
+
+        /* Ensure video feed image is displayed correctly */
+        #video-feed {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+
+        /* Robot and controls container */
+        .robot-controls-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Robot container */
+        .robot-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border: 2px solid #555;
+            background-color: #ddd;
+            border-radius: 10px;
+            transition: transform 1s ease;
+            margin-bottom: 20px;
+        }
+
+        /* Robot head */
+        .robot-head {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #777;
+            border-radius: 50%;
+        }
+
+        /* Robot body */
+        .robot-body {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background-color: #777;
+            border-radius: 10px;
+        }
+
+        /* Robot eyes */
+        .robot-eye {
+            position: absolute;
+            top: 25%;
+            width: 10px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+
+        .left-eye {
+            left: 20%;
+        }
+
+        .right-eye {
+            right: 20%;
+        }
+
+        /* Robot movement buttons */
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+
+        .controls button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .controls button:hover {
+            background-color: #45a049;
+        }
+
+        /* Movement animations */
+        .move-left {
+            transform: translateX(-50px);
+        }
+
+        .move-right {
+            transform: translateX(50px);
+        }
+
+        .move-forward {
+            transform: translateY(-50px);
+        }
+
+        .move-backward {
+            transform: translateY(50px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Robot Control Platform</h1>
+    </header>
+
+    <div class="content">
+        <div class="video-container">
+            <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Video Feed">
+        </div>
+
+        <div class="robot-controls-container">
+            <div class="robot-container" id="robot">
+                <div class="robot-head"></div>
+                <div class="robot-body">
+                    <div class="robot-eye left-eye"></div>
+                    <div class="robot-eye right-eye"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button onclick="moveRobot('left')">Left</button>
+                <button onclick="moveRobot('right')">Right</button>
+                <button onclick="moveRobot('forward')">Forward</button>
+                <button onclick="moveRobot('backward')">Backward</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function moveRobot(direction) {
+            const robot = document.getElementById('robot');
+            robot.classList.add(`move-${direction}`);
+            setTimeout(() => {
+                robot.classList.remove(`move-${direction}`);
+            }, 1000); // Remove the movement class after 1 second
+        }
+    </script>
+</body>
+</html>
